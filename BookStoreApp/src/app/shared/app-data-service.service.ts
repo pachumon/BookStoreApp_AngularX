@@ -7,16 +7,25 @@ import { tap, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class AddDataServiceService {
+export class AppDataService {
   private baseApiUrl = 'http://localhost:3600';
 
   constructor(private httpClient: HttpClient) {}
 
-  getBooksInitilData(): Observable<IBookInfo[]> {
+  getBookCollection(): Observable<IBookInfo[]> {
     return this.httpClient.get<IBookInfo[]>(`${this.baseApiUrl}/books`).pipe(
       tap(data => console.log(`All Books ${JSON.stringify(data)}`)),
       catchError(this.handleError)
     );
+  }
+
+  getBookDetails(bookId): Observable<IBookInfo> {
+    return this.httpClient
+      .get<IBookInfo>(`${this.baseApiUrl}/books/${bookId}`)
+      .pipe(
+        tap(data => console.log(`Book details ${JSON.stringify(data)}`)),
+        catchError(this.handleError)
+      );
   }
 
   private handleError(err: HttpErrorResponse) {
