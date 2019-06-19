@@ -1,10 +1,15 @@
 <div class="container-fluid">
-  <div class="row" ng-if="vm.viewdata">
+  <div class="row" *ngIf="viewdata">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Book Details&nbsp;:&nbsp;
+        Book Details&nbsp;:&nbsp;{{viewdata.title}}
       </div>
-      <div class="panel-body"></div>
+      <div class="panel-body">
+        <book-details-row labelName="Title" [content]="viewdata.title"></book-details-row>
+        <book-details-row labelName="Author" [content]="viewdata.author"></book-details-row>
+        <book-details-row labelName="Published" [content]="viewdata.published"></book-details-row>
+        <book-details-row labelName="Categories" [content]="viewdata.category"></book-details-row>
+      </div>
     </div>
   </div>
   <div class="row btncontainer">

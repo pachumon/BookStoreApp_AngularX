@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { DetailsRowComponent } from './book-details/details-row/details-row.component';
+import { BookActionsComponent } from './book-actions/book-actions.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, BookDetailsComponent, DetailsRowComponent],
+  declarations: [AppComponent, HomeComponent, BookDetailsComponent, DetailsRowComponent, BookActionsComponent],
   imports: [BrowserModule, FormsModule, HttpClientModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]

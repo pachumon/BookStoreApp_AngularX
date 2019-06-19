@@ -28,6 +28,29 @@ export class AppDataService {
       );
   }
 
+  updateBookInfo(bookObj) {
+    let { id, ...postData } = bookObj;
+    let url = `${this.baseApiUrl}/books`;
+    if (id === 0) {
+      return this.httpClient
+        .post<IBookInfo>(`${this.baseApiUrl}/books`, postData)
+        .pipe(
+          tap(data =>
+            console.log(`Book create response ${JSON.stringify(data)}`)
+          ),
+          catchError(this.handleError)
+        );
+    } else {
+      url = `${url}/${id}`;
+      return this.httpClient.put<IBookInfo>(`${url}`, postData).pipe(
+        tap(data =>
+          console.log(`Book update response ${JSON.stringify(data)}`)
+        ),
+        catchError(this.handleError)
+      );
+    }
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

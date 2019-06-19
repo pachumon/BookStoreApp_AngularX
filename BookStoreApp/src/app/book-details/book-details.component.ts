@@ -5,7 +5,8 @@ import { tap, map } from 'rxjs/operators';
 import { IBookInfo } from '../data-models/ibook-info';
 
 @Component({
-  selector: 'app-book-details',
+// tslint:disable-next-line: component-selector
+  selector: 'book-details',
   templateUrl: './book-details.component.html',
   styleUrls: ['./book-details.component.css']
 })
@@ -17,7 +18,7 @@ export class BookDetailsComponent implements OnInit {
   ) {}
 
   private bookId: number;
-  private viewdata: IBookInfo;
+  viewdata: IBookInfo;
 
   ngOnInit() {
     this.route.params
