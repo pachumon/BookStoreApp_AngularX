@@ -9,72 +9,70 @@
         }}
       </div>
       <div class="panel-body">
-        <form #form="ngForm">
+        <form #form="ngForm" class="form-horizontal" (submit)="submitForm(form)">
           <div class="form-group" [class.has-error]="titleInput.invalid && titleInput.touched">
                   <label for="title" class="col-sm-2 control-label">Title :</label>
-                  <div>
+                <div>
                   <div class="col-sm-6">
                     <input type="text" [(ngModel)]="viewdata.title" class="form-control" #titleInput="ngModel"
                     name="title" placeholder="Title" required>
                   </div>
-                 {{titleInput.errors}}
                 </div>
+                <div class="col-sm-4">
+                    <span class="alert alert-danger" *ngIf="titleInput.control.invalid && titleInput.control.touched">
+                        <span *ngIf="titleInput.control.errors?.required">Book Title is required.</span>
+                    </span>
                 </div>
-                <!--<div class="form-group"
-                     ng-class="{'has-error':bookForm.author.$invalid && bookForm.author.$touched}">
-                    <label for="author" class="col-sm-2 control-label">Author Name :</label>
-                    <div class="col-sm-6">
-                      <input type="text" ng-model="vm.viewdata.author" class="form-control" id="author"
-                      name="author" placeholder="Author" required>
-                    </div>
-                    <div class="col-sm-4">
-                        <span class="help-block has-error" ng-messages="bookForm.author.$error"
-                              ng-if="bookForm.author.$invalid && bookForm.author.$touched">
-                            <span ng-message="required">
-                                Author Name is required.
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                 <div class="form-group"
-                      ng-class="{'has-error':bookForm.published.$invalid && bookForm.published.$touched}">
-                      <label for="published" class="col-sm-2 control-label">Published :</label>
-                      <div class="col-sm-6">
-                        <input type="number" ng-model="vm.viewdata.published" class="form-control" id="published"
-                        name="published" placeholder="Published" required>
-                      </div>
-                      <div class="col-sm-4">
-                          <span class="help-block has-error" ng-messages="bookForm.published.$error"
-                                ng-if="bookForm.published.$invalid && bookForm.published.$touched">
-                              <span ng-message="required">
-                                  Published Year is required.
-                              </span>
-                          </span>
-                      </div>
-                </div>
-                <div class="form-group"
-                     ng-class="{'has-error':bookForm.category.$invalid && bookForm.category.$touched}">
-                    <label for="category" class="col-sm-2 control-label">Category :</label>
-                    <div class="col-sm-6">
-                      <input type="text" ng-model="vm.viewdata.category" class="form-control" id="category"
-                      name="category" placeholder="Category" required>
-                    </div>
-                    <div class="col-sm-4">
-                        <span class="help-block has-error" ng-messages="bookForm.category.$error"
-                              ng-if="bookForm.category.$invalid && bookForm.category.$touched">
-                            <span ng-message="required">
-                                Book Category is required.
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-10">
-                      <input type="submit" class="btn btn-primary" value="Submit" />
-                      <a ng-if="vm.viewdata.id===0" ng-click="vm.resetForm()"
-                      class="col-sm-offset-1 btn btn-primary">Reset</a>
-                    </div>
-                </div>-->
+           </div>
+           <div class="form-group" [class.has-error]="authorInput.invalid && authorInput.touched">
+              <label for="title" class="col-sm-2 control-label">Author :</label>
+            <div>
+              <div class="col-sm-6">
+                <input type="text" [(ngModel)]="viewdata.author" class="form-control" #authorInput="ngModel"
+                name="author" placeholder="Author" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <span class="alert alert-danger" *ngIf="authorInput.control.invalid && authorInput.control.touched">
+                    <span *ngIf="authorInput.control.errors?.required">Author name is required.</span>
+                </span>
+            </div>
+           </div>
+           <div class="form-group" [class.has-error]="publishedInput.invalid && publishedInput.touched">
+              <label for="title" class="col-sm-2 control-label">Published :</label>
+            <div>
+              <div class="col-sm-6">
+                <input type="number" [(ngModel)]="viewdata.published" class="form-control" #publishedInput="ngModel"
+                name="published" placeholder="published" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <span class="alert alert-danger" *ngIf="publishedInput.control.invalid && publishedInput.control.touched">
+                    <span *ngIf="publishedInput.control.errors?.required">Published year is required.</span>
+                </span>
+            </div>
+           </div>
+           <div class="form-group" [class.has-error]="categoryInput.invalid && categoryInput.touched">
+              <label for="category" class="col-sm-2 control-label">Category :</label>
+            <div>
+              <div class="col-sm-6">
+                <input type="text" [(ngModel)]="viewdata.category" class="form-control" #categoryInput="ngModel"
+                name="category" placeholder="category" required>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <span class="alert alert-danger" *ngIf="categoryInput.control.invalid && categoryInput.control.touched">
+                    <span *ngIf="categoryInput.control.errors?.required">category name is required.</span>
+                </span>
+            </div>
+           </div>
+           <div class="form-group">
+               <div class="col-sm-offset-3 col-sm-10">
+                 <input type="submit" class="btn btn-primary" value="Submit" />
+                 <a *ngIf="viewdata.id===0" (click)="resetForm(form)"
+                 class="col-sm-offset-1 btn btn-primary">Reset</a>
+               </div>
+           </div>
         </form>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AppDataService } from '../shared/app-data-service.service';
+import { AppDataService } from '../shared/app-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBookInfo } from '../data-models/ibook-info';
 import { map, tap } from 'rxjs/operators';
+import { get, set } from 'lodash';
+import { NgForm } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -19,6 +21,13 @@ export class BookActionsComponent implements OnInit {
 
   private bookId: number;
   viewdata: IBookInfo;
+  bookObj: IBookInfo = {
+    id: 0,
+    title: '',
+    author: '',
+    published: 2019,
+    category: ''
+  };
 
   ngOnInit() {
     this.route.params
@@ -35,14 +44,24 @@ export class BookActionsComponent implements OnInit {
         .getBookDetails(this.bookId)
         .subscribe(bookDetails => (this.viewdata = bookDetails));
     } else {
-      this.viewdata = {
-        id: 0,
-        title: '',
-        author: '',
-        published: 2019,
-        category: ''
-      };
+      this.viewdata = { ...this.bookObj };
     }
     console.log(this.viewdata);
+  }
+
+  resetForm(form: NgForm) {
+    form.reset();
+    this.viewdata = { ...this.bookObj };
+  }
+
+  submitForm(form: NgForm) {
+    console.log(this.viewdata);
+    if (form.status.toLowerCase() === 'valid') {
+      this.appDataService
+        .updateBookInfo(this.viewdata)
+        .subscribe(bookDetails => console.log(bookDetails));
+    } else {
+      return;
+    }
   }
 }

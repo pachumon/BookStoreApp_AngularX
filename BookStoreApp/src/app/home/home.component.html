@@ -25,7 +25,7 @@
           <td>{{ book.published }}</td>
           <td>
             <a class="mr15 tableAction" [routerLink]="['/bookActions/' + book.id]">Edit</a
-            ><a class="tableAction" ng-click="">Remove</a>
+            ><a class="tableAction" (click)="deleteBook(book)">Remove</a>
           </td>
         </tr>
       </tbody>
