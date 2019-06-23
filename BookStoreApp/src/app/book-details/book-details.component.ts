@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AppDataService } from '../shared/app-data.service';
+import { AppDataService } from '../shared/app-data-service/app-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { tap, map } from 'rxjs/operators';
 import { IBookInfo } from '../data-models/ibook-info';

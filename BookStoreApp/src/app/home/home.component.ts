@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { AppDataService } from '../shared/app-data.service';
+import { AppDataService } from '../shared/app-data-service/app-data.service';
 import { IBookInfo } from '../data-models/ibook-info';
-import { ToastrService } from 'ngx-toastr';
+import { AppToastrService } from '../shared/toaster/toaster.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class HomeComponent implements OnInit {
   constructor(
     private appDataService: AppDataService,
-    private toastr: ToastrService
+    private toastrService: AppToastrService
   ) {}
 
   viewdata: IBookInfo[] = [];
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
 
     this.appDataService.removeBookInfo(id).subscribe(data => {
       console.log(bookInfo);
-      this.toastr.success(`Removed the Book: ${bookInfo.title}`);
+      this.toastrService.showSuccess(`Removed the Book: ${bookInfo.title}`);
       this.getBookCollectionData();
     });
   }

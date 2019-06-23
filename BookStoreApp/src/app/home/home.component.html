@@ -17,14 +17,17 @@
       <tbody>
         <tr *ngFor="let book of viewdata">
           <td>
-            <a [routerLink]="['/bookDetails/' + book.id]" class="tableAction">{{
+            <a [routerLink]="['/bookDetails/', book.id]" class="tableAction">{{
               book.title
             }}</a>
           </td>
           <td>{{ book.author }}</td>
           <td>{{ book.published }}</td>
           <td>
-            <a class="mr15 tableAction" [routerLink]="['/bookActions/' + book.id]">Edit</a
+            <a
+              class="mr15 tableAction"
+              [routerLink]="['/bookActions/',book.id]"
+              >Edit</a
             ><a class="tableAction" (click)="deleteBook(book)">Remove</a>
           </td>
         </tr>
