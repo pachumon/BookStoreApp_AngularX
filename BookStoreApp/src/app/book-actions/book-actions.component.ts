@@ -5,6 +5,7 @@ import { IBookInfo } from '../data-models/ibook-info';
 import { map, tap } from 'rxjs/operators';
 import { get, set } from 'lodash';
 import { NgForm } from '@angular/forms';
+import { AppToastrService } from '../shared/toaster/toaster.service';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -16,7 +17,8 @@ export class BookActionsComponent implements OnInit {
   constructor(
     private appDataService: AppDataService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastrService: AppToastrService
   ) {}
 
   private bookId: number;
@@ -59,7 +61,10 @@ export class BookActionsComponent implements OnInit {
     if (form.status.toLowerCase() === 'valid') {
       this.appDataService
         .updateBookInfo(this.viewdata)
-        .subscribe(bookDetails => console.log(bookDetails));
+        .subscribe(bookDetails => {
+          console.log(bookDetails);
+          this.toastrService.showSuccess(`Added/Updated Book: ${bookDetails.title}`);
+        });
     } else {
       return;
     }
