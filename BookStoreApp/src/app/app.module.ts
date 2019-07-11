@@ -17,7 +17,7 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { booksReducer } from '../app/state/booksReducer';
+import { booksReducer } from './state/books.reducer';
 
 export const routerStateConfig = {
   stateKey: 'router' // state-slice name for routing state
