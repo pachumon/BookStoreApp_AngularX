@@ -12,6 +12,17 @@ import { BookDetailsComponent } from './book-details/book-details.component';
 import { DetailsRowComponent } from './book-details/details-row/details-row.component';
 import { BookActionsComponent } from './book-actions/book-actions.component';
 
+import { StoreModule } from '@ngrx/store';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from 'src/environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { booksReducer } from '../app/state/booksReducer';
+
+export const routerStateConfig = {
+  stateKey: 'router' // state-slice name for routing state
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +37,18 @@ import { BookActionsComponent } from './book-actions/book-actions.component';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    StoreRouterConnectingModule.forRoot(routerStateConfig),
+    StoreModule.forRoot({
+      router: routerReducer,
+      books: booksReducer
+    }),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      name: 'BookStore app',
+      maxAge: 20,
+      logOnly: environment.production
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
