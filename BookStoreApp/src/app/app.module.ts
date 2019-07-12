@@ -18,6 +18,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { booksReducer } from './state/books.reducer';
+import { BooksEffects } from './state/books.effects';
 
 export const routerStateConfig = {
   stateKey: 'router' // state-slice name for routing state
@@ -43,7 +44,7 @@ export const routerStateConfig = {
       router: routerReducer,
       books: booksReducer
     }),
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([BooksEffects]),
     StoreDevtoolsModule.instrument({
       name: 'BookStore app',
       maxAge: 20,

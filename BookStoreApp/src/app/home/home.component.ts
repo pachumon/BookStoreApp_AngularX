@@ -1,10 +1,18 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy
+} from '@angular/core';
 import { AppDataService } from '../shared/app-data-service/app-data.service';
 import { IBookInfo } from '../data-models/ibook-info';
 import { AppToastrService } from '../shared/toaster/toaster.service';
 import { Store, select } from '@ngrx/store';
 import * as fromBooks from '../state/books.reducer';
 import * as bookActions from '../state/books.actions';
+import { takeWhile } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line: component-selector
@@ -12,7 +20,8 @@ import * as bookActions from '../state/books.actions';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  books$: Observable<IBookInfo[]>;
   constructor(
     private appDataService: AppDataService,
     private toastrService: AppToastrService,
@@ -21,32 +30,31 @@ export class HomeComponent implements OnInit {
 
   viewdata: IBookInfo[] = [];
   booksData = [];
+  componentActive = true;
 
   ngOnInit() {
     // TODO : Unsubscribe
-    this.store.pipe(select(fromBooks.getBooksCollection)).subscribe(books => {
-      if (books) {
-        this.booksData = books;
-      }
-    });
+    // this.store
+    //   .pipe(
+    //     select(fromBooks.getBooksCollection),
+    //     takeWhile(() => this.componentActive)
+    //   )
+    //   .subscribe(books => {
+    //     if (books) {
+    //       this.viewdata = books;
+    //     }
+    //   });
+    this.books$ = this.store.pipe(select(fromBooks.getBooksCollection));
+    this.store.dispatch(new bookActions.LoadBooks());
+  }
 
-    this.getBookCollectionData();
+  ngOnDestroy(): void {
+    this.componentActive = false;
   }
 
   deleteBook(bookInfo: IBookInfo) {
     const { id } = bookInfo;
-
-    this.appDataService.removeBookInfo(id).subscribe(data => {
-      console.log(bookInfo);
-      this.toastrService.showSuccess(`Removed the Book: ${bookInfo.title}`);
-      this.getBookCollectionData();
-    });
-  }
-
-  getBookCollectionData(): void {
-    this.appDataService.getBookCollection().subscribe(data => {
-      this.viewdata = data;
-      this.store.dispatch(new bookActions.LoadBooks(data));
-    });
+    this.store.dispatch(new bookActions.RemoveBookInfo(id));
+    this.toastrService.showSuccess(`Removed the Book: ${bookInfo.title}`);
   }
 }
