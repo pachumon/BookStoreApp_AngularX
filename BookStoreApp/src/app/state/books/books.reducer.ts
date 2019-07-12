@@ -1,4 +1,4 @@
-import { IBookInfo } from '../data-models/ibook-info';
+import { IBookInfo } from '../../data-models/ibook-info';
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { BooksActions, booksActionTypes } from './books.actions';
 import * as R from 'ramda';

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IBookInfo } from '../data-models/ibook-info';
+import { IBookInfo } from '../../data-models/ibook-info';
 
 export enum booksActionTypes {
   LoadBooks = '[Books] Load Books',

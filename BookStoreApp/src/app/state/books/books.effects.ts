@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AppDataService } from '../shared/app-data-service/app-data.service';
+import { AppDataService } from '../../shared/app-data-service/app-data.service';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import * as bookActions from './books.actions';
 import { mergeMap, map } from 'rxjs/operators';
-import { IBookInfo } from '../data-models/ibook-info';
+import { IBookInfo } from '../../data-models/ibook-info';
 
 @Injectable()
 export class BooksEffects {

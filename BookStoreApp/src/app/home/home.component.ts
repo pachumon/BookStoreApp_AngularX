@@ -9,8 +9,8 @@ import { AppDataService } from '../shared/app-data-service/app-data.service';
 import { IBookInfo } from '../data-models/ibook-info';
 import { AppToastrService } from '../shared/toaster/toaster.service';
 import { Store, select } from '@ngrx/store';
-import * as fromBooks from '../state/books.reducer';
-import * as bookActions from '../state/books.actions';
+import * as fromBooks from '../state/books/books.reducer';
+import * as bookActions from '../state/books/books.actions';
 import { takeWhile } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
