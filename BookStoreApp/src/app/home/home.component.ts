@@ -44,7 +44,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     //       this.viewdata = books;
     //     }
     //   });
-    this.books$ = this.store.pipe(select(fromBooks.getBooksCollection));
+    this.books$ = this.store.pipe(
+      select(fromBooks.getBooksCollection),
+      takeWhile(() => this.componentActive)
+    );
     this.store.dispatch(new bookActions.LoadBooks());
   }
 

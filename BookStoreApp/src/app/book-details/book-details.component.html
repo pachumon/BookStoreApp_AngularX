@@ -1,14 +1,26 @@
 <div class="container-fluid">
-  <div class="row" *ngIf="viewdata">
+  <div class="row" *ngIf="(bookInfo$ | async)">
     <div class="panel panel-primary">
       <div class="panel-heading">
-        Book Details&nbsp;:&nbsp;{{viewdata.title}}
+        Book Details&nbsp;:&nbsp;{{ (bookInfo$ | async)?.title }}
       </div>
       <div class="panel-body">
-        <book-details-row labelName="Title" [content]="viewdata.title"></book-details-row>
-        <book-details-row labelName="Author" [content]="viewdata.author"></book-details-row>
-        <book-details-row labelName="Published" [content]="viewdata.published"></book-details-row>
-        <book-details-row labelName="Categories" [content]="viewdata.category"></book-details-row>
+        <book-details-row
+          labelName="Title"
+          [content]="(bookInfo$ | async)?.title"
+        ></book-details-row>
+        <book-details-row
+          labelName="Author"
+          [content]="(bookInfo$ | async)?.author"
+        ></book-details-row>
+        <book-details-row
+          labelName="Published"
+          [content]="(bookInfo$ | async)?.published"
+        ></book-details-row>
+        <book-details-row
+          labelName="Categories"
+          [content]="(bookInfo$ | async)?.category"
+        ></book-details-row>
       </div>
     </div>
   </div>

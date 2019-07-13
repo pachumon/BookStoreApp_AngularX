@@ -10,7 +10,8 @@ export enum bookInfoActionTypes {
   CreateBookError = '[BookInfo] Create Book Error',
   EditBook = '[BookInfo] Edit Book',
   EditBookSuccess = '[BookInfo] Edit Book Success',
-  EditBookError = '[BookInfo] Edit Book Error'
+  EditBookError = '[BookInfo] Edit Book Error',
+  ClearStaleBookData = '[BookInfo] Clear Stale Book Data'
 }
 
 export class LoadBook implements Action {
@@ -58,6 +59,11 @@ export class EditBookError implements Action {
   constructor(public payload: string) {}
 }
 
+export class ClearStaleBookData implements Action {
+  readonly type = bookInfoActionTypes.ClearStaleBookData;
+}
+
+
 export type BookInfoActions =
   | LoadBook
   | LoadBookSuccess
@@ -67,4 +73,5 @@ export type BookInfoActions =
   | CreateBookError
   | EditBook
   | EditBookSuccess
-  | EditBookError;
+  | EditBookError
+  | ClearStaleBookData;
